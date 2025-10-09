@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 const reviews = [
   {
     name: "Maria P.",
-    text: "The staff is so friendly and helpful! I transferred my prescriptions here and Im glad I did.",
+    text: "The staff is so friendly and helpful! I transferred my prescriptions here and I'm glad I did.",
     rating: 5,
   },
   {
@@ -45,7 +45,7 @@ export default function Testimonials() {
               </div>
 
               {/* Review Text */}
-              <p className="text-gray-600 italic mb-4">"{review.text}"</p>
+              <p className="text-gray-600 italic mb-4">&quot;{review.text}&quot;</p>
               <h3 className="font-semibold text-blue-800">{review.name}</h3>
             </div>
           ))}
