@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 const reviews = [
   {
     name: "Maria P.",
-    text: "The staff is so friendly and helpful! I transferred my prescriptions here and I’m glad I did.",
+    text: "The staff is so friendly and helpful! I transferred my prescriptions here and Im glad I did.",
     rating: 5,
   },
   {
