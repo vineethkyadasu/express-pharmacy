@@ -1,84 +1,100 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import {
-  Syringe,
-  CalendarCheck,
-  ClipboardCheck,
-  Package,
-  Stethoscope,
-  HeartPulse,
-} from "lucide-react";
 
 const services = [
   {
-    title: "Immunizations",
-    description: "Protect yourself and your family with our range of vaccines.",
-    icon: Syringe,
-    link: "/services/immunizations",
+    name: "Prescription Medications",
+    image: "/services/prescription.jpg",
   },
   {
-    title: "Medication Synchronization",
-    description: "Pick up all your prescriptions on the same day each month.",
-    icon: CalendarCheck,
-    link: "/services/medication-synchronization",
+    name: "Immunizations",
+    image: "/services/immunizations.jpg",
   },
   {
-    title: "Medication Therapy Management",
-    description: "Personalized reviews to optimize your treatment plan.",
-    icon: ClipboardCheck,
-    link: "/services/medication-therapy-management",
+    name: "Vitamins / Supplements",
+    image: "/services/vitamins.jpg",
   },
   {
-    title: "Medication Packaging",
-    description: "Custom blister packs to simplify your daily routine.",
-    icon: Package,
-    link: "/services/medication-packaging",
+    name: "OTC Drugs",
+    image: "/services/otc.jpg",
   },
   {
-    title: "Medicare Open Enrollment",
-    description: "Get expert help choosing the best Medicare Part D plan.",
-    icon: Stethoscope,
-    link: "/services/medicare-open-enrollment",
+    name: "Surgical Supplies",
+    image: "/services/surgical.jpg",
   },
   {
-    title: "Medical Supplies",
-    description: "Durable equipment and supplies for your everyday needs.",
-    icon: HeartPulse,
-    link: "/services/medical-supplies",
+    name: "DME (Durable Medical Equipment)",
+    image: "/services/dme.jpg",
+  },
+  {
+    name: "Diabetic Supplies",
+    image: "/services/diabetic.jpg",
+  },
+  {
+    name: "E-Prescribing",
+    image: "/services/eprescribing.jpg",
+  },
+  {
+    name: "Pharmacist Consultation",
+    image: "/services/consultation.jpg",
+  },
+  {
+    name: "Delivery Service",
+    image: "/services/delivery.jpg",
+  },
+  {
+    name: "Patient Counseling",
+    image: "/services/counseling.jpg",
   },
 ];
 
 export default function Services() {
   return (
-    <section className="py-20 bg-gray-50" id="services">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6 text-center">
-        {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-blue-900">
-          Our Services
+        {/* Intro */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-blue-900">
+          Quality Services Tailored to Your Healthcare Needs
         </h2>
+        <p className="text-gray-700 max-w-3xl mx-auto mb-12">
+          We offer a range of services to help our customers maintain their health and well-being. 
+          From consultation services in Skillman, New Jersey to medication management and vaccinations, 
+          we are here to provide support and guidance every step of the way. 
+          Our independent pharmacy is committed to helping our community stay healthy and happy.
+        </p>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Services Grid */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
           {services.map((service) => (
-            <Link
-              key={service.title}
-              href={service.link}
-              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition p-8 text-left"
+            <div
+              key={service.name}
+              className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition group"
             >
-              {/* Icon */}
-              <service.icon className="h-12 w-12 text-blue-700 mb-4 group-hover:scale-110 transition" />
-
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-blue-900 mb-2">
-                {service.title}
+              <Image
+                src={service.image}
+                alt={service.name}
+                width={400}
+                height={300}
+                className="object-cover w-full h-56 group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-blue-900/60 group-hover:bg-blue-900/40 transition"></div>
+              <h3 className="absolute bottom-4 left-4 right-4 text-white text-xl font-semibold">
+                {service.name}
               </h3>
-
-              {/* Description */}
-              <p className="text-gray-600">{service.description}</p>
-            </Link>
+            </div>
           ))}
         </div>
+
+        {/* Outro */}
+        <p className="text-gray-700 mt-16 max-w-2xl mx-auto">
+          Let us be your partner in health — 
+          <Link href="/contact" className="text-blue-900 font-semibold hover:underline">
+            contact us today
+          </Link>{" "}
+          for all your healthcare needs.
+        </p>
       </div>
     </section>
   );
