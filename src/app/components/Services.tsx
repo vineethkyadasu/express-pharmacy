@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Truck, ShieldCheck, Syringe, FileCheck, Clock, User, FileText, Stethoscope, Stamp } from "lucide-react";
+import { Truck, ShieldCheck, Syringe, FileCheck, User, FileText, Stethoscope} from "lucide-react";
 
 const allServices = [
   {
