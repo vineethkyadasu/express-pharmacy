@@ -35,10 +35,10 @@ export default function Footer() {
             <li><Link href="/about" className="hover:text-blue-300 transition">About Us</Link></li>
             <li><Link href="/services" className="hover:text-blue-300 transition">Our Services</Link></li>
             <li>
-  <Link href="/medical-supplies" className="hover:text-blue-300 transition">
-    Medical Supplies
-  </Link>
-</li>
+              <Link href="/medical-supplies" className="hover:text-blue-300 transition">
+                Medical Supplies
+              </Link>
+            </li>
             <li><Link href="/contact" className="hover:text-blue-300 transition">Contact Us</Link></li>
           </ul>
         </div>
@@ -79,7 +79,20 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="bg-[#081A33] text-center py-6 text-sm text-gray-400 border-t border-gray-700">
-        © {new Date().getFullYear()} Express Pharmacy — All Rights Reserved.
+        <p>
+          © {new Date().getFullYear()} Express Pharmacy — All Rights Reserved.
+        </p>
+        <p className="mt-2">
+          Designed & Developed by{" "}
+          <a
+            href="https://vikrin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 font-medium"
+          >
+            Vikrin
+          </a>
+        </p>
       </div>
     </footer>
   );

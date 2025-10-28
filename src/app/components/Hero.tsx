@@ -40,6 +40,16 @@ export default function Hero() {
             Our Services
           </Link>
         </div>
+
+        {/* Refill Rx Button (Mobile Only) */}
+        <div className="mt-6 block md:hidden">
+          <Link
+            href="/refill-rx"
+            className="bg-red-600 px-10 py-3 rounded-lg font-semibold hover:bg-red-700 transition shadow-md"
+          >
+            Refill Rx
+          </Link>
+        </div>
       </div>
     </section>
   );

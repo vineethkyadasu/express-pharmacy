@@ -1,100 +1,84 @@
-// src/app/components/ContactForm.tsx
 "use client";
-
 import { useState } from "react";
-
-type FormState = {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-};
+import emailjs from "emailjs-com";
 
 export default function ContactForm() {
-  const [form, setForm] = useState<FormState>({ name: "", email: "", phone: "", message: "" });
-  const [status, setStatus] = useState<null | "idle" | "sending" | "sent" | "error">(null);
+  const [formData, setFormData] = useState({
+    from_name: "",
+    from_email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
 
-  function updateField(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
-  }
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  async function handleSubmit(e: React.FormEvent) {
+  const sendEmail = (e: any) => {
     e.preventDefault();
-    setStatus("sending");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+    setStatus("Sending...");
 
-      if (res.ok) {
-        setStatus("sent");
-        setForm({ name: "", email: "", phone: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
-    } finally {
-      setTimeout(() => setStatus(null), 4000);
-    }
-  }
+    const emailData = {
+      ...formData,
+      title: formData.from_name, // 👈 used for subject: Contact Us: {{title}}
+      time: new Date().toLocaleString(), // 👈 used for {{time}} in your email template
+    };
+
+    emailjs
+      .send(
+        "service_vh27chc", // your service ID
+        "template_9tu2lug", // your template ID
+        emailData,
+        "0uoiqedD2ILnqfgYP" // your public key
+      )
+      .then(
+        () => {
+          setStatus("✅ Message sent successfully!");
+          setFormData({ from_name: "", from_email: "", message: "" });
+        },
+        (error) => {
+          console.error(error);
+          setStatus("❌ Failed to send. Try again later.");
+        }
+      );
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid md:grid-cols-2 gap-4">
-        <input
-          name="name"
-          value={form.name}
-          onChange={updateField}
-          required
-          placeholder="Your name"
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-        <input
-          name="email"
-          value={form.email}
-          onChange={updateField}
-          required
-          type="email"
-          placeholder="Email address"
-          className="w-full px-4 py-2 border rounded-lg"
-        />
-      </div>
-
+    <form onSubmit={sendEmail} className="space-y-4 max-w-lg mx-auto">
       <input
-        name="phone"
-        value={form.phone}
-        onChange={updateField}
-        placeholder="Phone (optional)"
-        className="w-full px-4 py-2 border rounded-lg"
+        type="text"
+        name="from_name"
+        placeholder="Your Name"
+        value={formData.from_name}
+        onChange={handleChange}
+        required
+        className="w-full border border-gray-300 p-3 rounded-lg"
       />
-
+      <input
+        type="email"
+        name="from_email"
+        placeholder="Your Email"
+        value={formData.from_email}
+        onChange={handleChange}
+        required
+        className="w-full border border-gray-300 p-3 rounded-lg"
+      />
       <textarea
         name="message"
-        value={form.message}
-        onChange={updateField}
+        placeholder="Your Message"
+        value={formData.message}
+        onChange={handleChange}
         required
-        placeholder="How can we help you?"
-        className="w-full px-4 py-2 border rounded-lg min-h-[120px]"
-      />
-
-      <div className="flex items-center gap-4">
-        <button
-          type="submit"
-          className="bg-blue-900 text-white px-5 py-2 rounded-lg font-semibold"
-          disabled={status === "sending"}
-        >
-          {status === "sending" ? "Sending..." : "Send Message"}
-        </button>
-
-        <div>
-          {status === "sent" && <span className="text-green-600">Message sent — we will contact you soon.</span>}
-          {status === "error" && <span className="text-red-600">Error sending message. Try again later.</span>}
-        </div>
-      </div>
+        className="w-full border border-gray-300 p-3 rounded-lg"
+        rows={5}
+      ></textarea>
+      <button
+        type="submit"
+        className="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition w-full"
+      >
+        Send Message
+      </button>
+      {status && <p className="text-sm mt-2 text-center">{status}</p>}
     </form>
   );
 }

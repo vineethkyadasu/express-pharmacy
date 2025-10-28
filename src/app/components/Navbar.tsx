@@ -16,6 +16,7 @@ export default function Navbar() {
     { name: "Medical Supplies", href: "/medical-supplies" },
     { name: "Resources", href: "/resources" },
     { name: "Contact", href: "/contact" },
+    { name: "Refill Rx", href: "/refill-rx", isButton: true },
   ];
 
   return (
@@ -36,17 +37,26 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-8 text-gray-700 font-medium">
+        <ul className="hidden md:flex items-center gap-8 text-gray-700 font-medium">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link
-                href={link.href}
-                className={`hover:text-blue-900 transition ${
-                  pathname === link.href ? "text-blue-900 font-semibold" : ""
-                }`}
-              >
-                {link.name}
-              </Link>
+              {link.isButton ? (
+                <Link
+                  href={link.href}
+                  className="bg-red-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-700 transition shadow-sm"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={`hover:text-blue-900 transition ${
+                    pathname === link.href ? "text-blue-900 font-semibold" : ""
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -67,15 +77,25 @@ export default function Navbar() {
           <ul className="flex flex-col items-center py-4 gap-4 text-gray-700 font-medium">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`hover:text-blue-900 transition ${
-                    pathname === link.href ? "text-blue-900 font-semibold" : ""
-                  }`}
-                >
-                  {link.name}
-                </Link>
+                {link.isButton ? (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition shadow-sm"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`hover:text-blue-900 transition ${
+                      pathname === link.href ? "text-blue-900 font-semibold" : ""
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
